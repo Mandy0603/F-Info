@@ -1,0 +1,4 @@
+export const FETCH_FX_RATE = "FETCH_FX_RATE";
+export const FETCH_INDEX = "FETCH_INDEX";
+
+export const FETCH_STOCK_PRICE_CARD = "FETCH_STOCK_PRICE_CARD";

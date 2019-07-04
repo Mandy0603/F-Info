@@ -1,0 +1,40 @@
+.index {
+  &-title {
+    color: rgb(42, 43, 45);
+    font-size: 3rem;
+  }
+  &-content {
+    padding: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+  }
+  &-individual {
+    width: 22%;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+    &__upper,
+    &__lower {
+      display: flex;
+      justify-content: center;
+    }
+    &__name,
+    &__percentage {
+      font-size: 1.5rem;
+    }
+    &__price,
+    &__changes {
+      font-size: 1.2rem;
+    }
+    &__name {
+      margin-right: 1rem;
+    }
+    &__name,
+    &__price {
+      color: rgb(87, 96, 100);
+    }
+    &__separator {
+      padding: 0 2px;
+    }
+  }
+}

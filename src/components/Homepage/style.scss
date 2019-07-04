@@ -1,0 +1,26 @@
+.homepage {
+  padding: 2rem 6rem;
+  &-upper {
+    width: 100%;
+  }
+  &-lower {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  &-quarter {
+    width: 46%;
+  }
+}
+.table {
+  width: 100%;
+  border: 1px solid lightgray;
+  &-row {
+    display: flex;
+  }
+  &-title {
+  }
+  &-content {
+  }
+}
