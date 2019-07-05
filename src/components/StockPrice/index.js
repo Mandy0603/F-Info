@@ -1,7 +1,7 @@
 import React from "react";
 import Card from "../Homepage/Card";
 import { connect } from "react-redux";
-import { fetchStockPriceCard } from "../../store/actions/stockPriceCard";
+import { fetchStockPriceCard } from "../../store/actions/stockPrice";
 
 class StockPrice extends React.Component {
   state = { toggle: true };
@@ -22,7 +22,7 @@ class StockPrice extends React.Component {
       <div>
         <Card
           type="stockPrice"
-          title="Most Searched Stocks"
+          title="Search More"
           contentList={this.props.stockPriceForCard}
         />
       </div>

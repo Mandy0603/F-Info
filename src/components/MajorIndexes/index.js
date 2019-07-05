@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { fetchIndex } from "../../store/actions/majorIndex";
+import history from "../../history";
 
 import "./style.scss";
 
@@ -20,6 +21,10 @@ class MajorIndexes extends React.Component {
     }
   }
 
+  jumpToDetailPage = () => {
+    history.push("/market-indexes-major-markets");
+  };
+
   renderIndexes = () => {
     if (this.props.majorIndex.length === 0) return;
     let indexList = [];
@@ -31,11 +36,15 @@ class MajorIndexes extends React.Component {
         color: changes >= 0 ? "rgb(4,159,58)" : "rgb(220,54,89)"
       };
       indexList.push(
-        <div key={price} className="index-individual">
+        <div
+          key={price}
+          className="index-individual"
+          onClick={this.jumpToDetailPage}
+        >
           <div className="index-individual__upper">
             <div className="index-individual__name">{indexName}</div>
             <div className="index-individual__percentage" style={textColor}>
-              {(changes > 0 ? "+" : "-") + percentage}
+              {(changes > 0 ? "+" : "") + percentage}
             </div>
           </div>
           <div className="index-individual__lower">
@@ -53,7 +62,9 @@ class MajorIndexes extends React.Component {
   render() {
     return (
       <div className="index">
-        <div className="index-title">Major Indexes</div>
+        <div className="index-title" onClick={this.jumpToDetailPage}>
+          Major Indexes
+        </div>
         <div className="index-content">{this.renderIndexes()}</div>
       </div>
     );

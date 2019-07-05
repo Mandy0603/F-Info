@@ -6,7 +6,6 @@ export const fetchIndex = () => dispatch => {
     .get("https://financialmodelingprep.com/api/v3/majors-indexes")
     .then(res => {
       let majorIndex = res.data.majorIndexesList;
-      console.log(majorIndex);
       return dispatch({
         type: FETCH_INDEX,
         payload: majorIndex

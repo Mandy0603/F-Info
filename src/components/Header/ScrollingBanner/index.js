@@ -1,15 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { fetchFXRate } from "../../../store/actions/banner";
+import { fetchCurrency } from "../../../store/actions/currency";
 
 class ScrollingBanner extends React.Component {
   state = { toggle: true };
   componentWillMount() {
-    this.props.fetchFXRate();
+    this.props.fetchCurrency();
   }
   componentWillReceiveProps(nextProps) {
-    if (nextProps.fxRate) {
+    if (nextProps.fxRate !== this.props.fxRate) {
       this.setState(prevState => {
         this.state.toggle = !prevState.toggle;
       });
@@ -22,7 +22,7 @@ class ScrollingBanner extends React.Component {
         <span key={index} className="banner-individual">
           <span className="banner-individual-ticker">{rate.ticker}</span>
           <span className="banner-individual-price">
-            {rate.ask && Number.parseFloat(rate.ask).toFixed(4)}
+            {rate.bid && Number.parseFloat(rate.bid).toFixed(4)}
           </span>
           <span
             className="banner-individual-change"
@@ -30,7 +30,7 @@ class ScrollingBanner extends React.Component {
               color: rate.changes > 0 ? "rgb(4,159,58)" : "rgb(220,54,89)"
             }}
           >
-            {Number.parseFloat(rate.changes * 100).toFixed(2) + "%"}
+            {Number.parseFloat(rate.changes).toFixed(2) + "%"}
           </span>
         </span>
       );
@@ -46,10 +46,10 @@ class ScrollingBanner extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return { fxRate: state.fxRate.fxRate };
+  return { fxRate: state.currency.currency };
 };
 
 export default connect(
   mapStateToProps,
-  { fetchFXRate }
+  { fetchCurrency }
 )(ScrollingBanner);

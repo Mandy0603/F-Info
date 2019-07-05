@@ -1,14 +1,16 @@
 import React from "react";
 
+import history from "../../../history";
+
 import "../style.scss";
 
 class NavBar extends React.Component {
   render() {
     return (
       <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">
+        <div class="navbar-brand" onClick={() => history.push("/")}>
           Financial Info
-        </a>
+        </div>
         <form class="form-inline my-2 my-lg-0">
           <input
             class="form-control mr-sm-2"

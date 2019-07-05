@@ -1,0 +1,15 @@
+.summary {
+  padding: 1rem 3rem;
+  &-title {
+    color: rgb(42, 43, 45);
+    font-size: 2.5rem;
+    padding-bottom: 1.5rem;
+  }
+  &-general {
+    color: rgb(42, 43, 45);
+    font-size: 2rem;
+    display: flex;
+    width: 25%;
+    justify-content: space-between;
+  }
+}
