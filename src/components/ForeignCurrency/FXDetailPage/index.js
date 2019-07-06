@@ -34,7 +34,7 @@ class MajorIndexesDetailPage extends React.Component {
             style={{ color: changes >= 0 ? "rgb(4,159,58)" : "rgb(220,54,89)" }}
           >
             {(changes > 0 ? "+" : "") +
-              Number.parseFloat(changes / 100).toFixed(4)}
+              Number.parseFloat(bid - bid / (1 + changes / 100)).toFixed(4)}
           </td>
           <td
             style={{ color: changes >= 0 ? "rgb(4,159,58)" : "rgb(220,54,89)" }}

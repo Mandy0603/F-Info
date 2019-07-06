@@ -51,7 +51,7 @@ class MajorIndexes extends React.Component {
             <div className="index-individual__price">{price} </div>
             <div className="index-individual__separator">{"/"}</div>
             <div className="index-individual__changes" style={textColor}>
-              {changes}
+              {Number.parseFloat(changes).toFixed(2)}
             </div>
           </div>
         </div>
