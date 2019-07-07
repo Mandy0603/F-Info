@@ -51,7 +51,7 @@ class IncomeStatement extends React.Component {
     ];
 
     return (
-      <div>
+      <div className="statements-container">
         <div className="statements-title">Income Statement</div>
         <div>
           <StatementTable

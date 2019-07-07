@@ -1,0 +1,27 @@
+.rating {
+  &-container {
+    width: 50%;
+    padding: 1rem 3rem 0 0;
+  }
+  &-subcontainer {
+    display: flex;
+    justify-content: space-between;
+  }
+  &-subtitle {
+    font-weight: 600;
+    color: #636b6f;
+  }
+  &-general-container {
+    padding: 7px 0;
+  }
+  &-recommendation {
+    font-size: 2rem;
+    color: #636b6f;
+    padding-left: 3px;
+  }
+}
+
+.star {
+  padding-left: 1rem;
+  color: gold;
+}

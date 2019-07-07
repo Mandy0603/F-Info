@@ -7,6 +7,8 @@ import discountCardReducer from "./discountCardReducer";
 import cryptoReducer from "./cryptoReducer";
 import currencyReducer from "./currencyReducer";
 import statementReducer from "./statementReducer";
+import summaryReducer from "./summaryReducer";
+import ratingReducer from "./ratingReducer";
 
 const reducers = combineReducers({
   majorIndex: indexReducer,
@@ -14,7 +16,9 @@ const reducers = combineReducers({
   discountCard: discountCardReducer,
   crypto: cryptoReducer,
   currency: currencyReducer,
-  statements: statementReducer
+  statements: statementReducer,
+  summary: summaryReducer,
+  rating: ratingReducer
 });
 
 export default reducers;
