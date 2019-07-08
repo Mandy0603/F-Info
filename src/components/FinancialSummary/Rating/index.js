@@ -26,14 +26,14 @@ class Rating extends React.Component {
       const figure = Number.parseFloat(this.props.rating.rating.score);
       let starSet = [];
       for (let i = 0; i < figure; i++) {
-        starSet.push(<i class="star icon" />);
+        starSet.push(<i key={i} class="star icon" />);
       }
       return starSet;
     }
   };
   render() {
     if (this.props.rating.length === 0) {
-      return <div>Spinner</div>;
+      return <div className="rating-container__spinner" />;
     } else {
       return (
         <div className="rating-container">

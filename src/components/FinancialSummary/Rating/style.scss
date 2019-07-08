@@ -2,6 +2,11 @@
   &-container {
     width: 50%;
     padding: 1rem 3rem 0 0;
+    &__spinner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
   &-subcontainer {
     display: flex;

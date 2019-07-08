@@ -6,7 +6,8 @@ import {
 
 const initialState = {
   pricesForCards: [],
-  individualStock: []
+  individualStock: [],
+  error: ""
 };
 
 const reducer = (state = initialState, action) => {
@@ -14,7 +15,9 @@ const reducer = (state = initialState, action) => {
     case FETCH_STOCK_PRICE_CARD:
       return { ...state, pricesForCards: action.payload };
     case FETCH_INDIVIDUAL_STOCK:
-      return { ...state, individualStock: action.payload };
+      return { ...state, individualStock: action.payload, error: "" };
+    case FETCH_INDIVIDUAL_STOCK_ERROR:
+      return { ...state, error: action.payload };
     default:
       return state;
   }

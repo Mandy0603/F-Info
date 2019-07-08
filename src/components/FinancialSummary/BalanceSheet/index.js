@@ -47,12 +47,17 @@ class BalanceSheet extends React.Component {
       "Other Assets",
       "Other Liabilities"
     ];
+    const URL =
+      "https://financialmodelingprep.com/api/v3/financials/balance-sheet-statement/" +
+      this.props.symbol +
+      "?datatype=csv";
 
     return (
       <div>
-        <div className="statements-title">Balance Sheet</div>
         <div>
           <StatementTable
+            url={URL}
+            title="Balance Sheets"
             content={this.props.balanceSheet}
             tableHeads={tableHeads}
           />

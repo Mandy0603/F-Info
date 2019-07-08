@@ -4,21 +4,18 @@ import { connect } from "react-redux";
 import { fetchDiscount } from "../../../store/actions/discount";
 
 class DiscountCashFlowDetail extends React.Component {
-  state = { stock: "" };
+  state = { isLoading: false };
   onFormSubmit = event => {
+    this.setState({ isLoading: true });
     event.preventDefault();
-    this.props.fetchDiscount(this.state.stock.toUpperCase());
+    this.props.fetchDiscount(this.state.stock.toUpperCase(), () => {
+      this.setState({ isLoading: false });
+    });
   };
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.value !== this.props.value) {
-      this.renderContent();
-    }
-  }
 
   renderContent = () => {
     if (!this.props.value || this.props.value.length === 0) return;
-    if (this.props.value.Error) {
+    if (this.props.error === "Error") {
       return (
         <div style={{ color: "red", padding: "0 1rem" }}>
           No record found. Please check the company code you entered again
@@ -52,7 +49,7 @@ class DiscountCashFlowDetail extends React.Component {
                 {StockPrice}
               </th>
               <th scope="row" className="th-name">
-                {DCF}
+                {Number.parseFloat(DCF).toFixed(2)}
               </th>
               <th scope="row" className="th-name">
                 {date}
@@ -94,7 +91,8 @@ class DiscountCashFlowDetail extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    value: state.discountCard.discountValue
+    value: state.discountCard.discountValue,
+    error: state.discountCard.error
   };
 };
 

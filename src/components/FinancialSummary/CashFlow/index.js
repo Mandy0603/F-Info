@@ -33,13 +33,18 @@ class CashFlow extends React.Component {
       "Free Cash Flow",
       "Net Cash/Marketcap"
     ];
+    const URL =
+      "https://financialmodelingprep.com/api/v3/financials/cash-flow-statement/" +
+      this.props.symbol +
+      "?datatype=csv";
     return (
       <div>
-        <div className="statements-title">Cash Flow Statement</div>
         <div>
           <StatementTable
+            url={URL}
             content={this.props.cashFlow}
             tableHeads={tableHeads}
+            title="Cash Flow Statements"
           />
         </div>
       </div>

@@ -5,12 +5,13 @@ import {
 } from "./actionTypes";
 import axios from "axios";
 
-export const fetchStockPriceCard = () => dispatch => {
+export const fetchStockPriceCard = callback => dispatch => {
   const URL =
     "https://financialmodelingprep.com/api/v3/stock/real-time-price/" +
     "AAPL,MSFT,FB,ZNGA,NVDA";
   axios.get(URL).then(res => {
     let stockPriceCard = res.data.companiesPriceList;
+    callback();
     return dispatch({
       type: FETCH_STOCK_PRICE_CARD,
       payload: stockPriceCard
@@ -18,31 +19,34 @@ export const fetchStockPriceCard = () => dispatch => {
   });
 };
 
-export const fetchIndividualStock = symbol => dispatch => {
+export const fetchIndividualStock = (symbol, callback) => dispatch => {
   const URL =
     "https://financialmodelingprep.com/api/v3/stock/real-time-price/" + symbol;
   const URL_NAME =
     "https://financialmodelingprep.com/api/v3/company/profile/" + symbol;
-  let companyName;
-  let industry;
+
+  let stockPrice;
 
   axios
-    .get(URL_NAME)
+    .get(URL)
     .then(res => {
-      if (res.data.profile) {
-        companyName = res.data.profile.companyName;
-        industry = res.data.profile.industry;
-      }
+      stockPrice = res.data;
+      return axios.get(URL_NAME);
     })
-    .then(
-      axios.get(URL).then(res => {
-        let stockPrice = res.data;
-        stockPrice.companyName = companyName;
-        stockPrice.industry = industry;
-        return dispatch({
-          type: FETCH_INDIVIDUAL_STOCK,
-          payload: stockPrice
-        });
-      })
-    );
+    .then(res => {
+      stockPrice.companyName = res.data.profile.companyName;
+      stockPrice.industry = res.data.profile.industry;
+
+      callback();
+      return dispatch({
+        type: FETCH_INDIVIDUAL_STOCK,
+        payload: stockPrice
+      });
+    })
+    .catch(err => {
+      return dispatch({
+        type: FETCH_INDIVIDUAL_STOCK_ERROR,
+        payload: "Error"
+      });
+    });
 };

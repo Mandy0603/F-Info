@@ -4,17 +4,12 @@ import { connect } from "react-redux";
 import { fetchStockPriceCard } from "../../store/actions/stockPrice";
 
 class StockPrice extends React.Component {
-  state = { toggle: true };
-  componentWillMount() {
-    this.props.fetchStockPriceCard();
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.stockPriceForCard) {
-      this.setState(prevState => {
-        this.state.toggle = !prevState.toggle;
-      });
-    }
+  state = { isLoading: false };
+  componentDidMount() {
+    this.setState({ isLoading: true });
+    this.props.fetchStockPriceCard(() => {
+      this.setState({ isLoading: false });
+    });
   }
 
   render() {
@@ -31,7 +26,9 @@ class StockPrice extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return { stockPriceForCard: state.stockPriceForCard.pricesForCards };
+  return {
+    stockPriceForCard: state.stockPriceForCard.pricesForCards
+  };
 };
 
 export default connect(

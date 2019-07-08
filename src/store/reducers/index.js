@@ -9,6 +9,7 @@ import currencyReducer from "./currencyReducer";
 import statementReducer from "./statementReducer";
 import summaryReducer from "./summaryReducer";
 import ratingReducer from "./ratingReducer";
+import stockChartsReducer from "./stockChartsReducer";
 
 const reducers = combineReducers({
   majorIndex: indexReducer,
@@ -18,7 +19,8 @@ const reducers = combineReducers({
   currency: currencyReducer,
   statements: statementReducer,
   summary: summaryReducer,
-  rating: ratingReducer
+  rating: ratingReducer,
+  stockCharts: stockChartsReducer
 });
 
 export default reducers;

@@ -4,17 +4,12 @@ import { connect } from "react-redux";
 import { fetchDiscountCard } from "../../store/actions/discount";
 
 class DiscountCashFlow extends React.Component {
-  state = { toggle: true };
-  componentWillMount() {
-    this.props.fetchDiscountCard();
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.discountCard !== this.props.discountCard) {
-      this.setState(prevState => {
-        this.state.toggle = !prevState.toggle;
-      });
-    }
+  state = { isLoading: false };
+  componentDidMount() {
+    this.setState({ isLoading: true });
+    this.props.fetchDiscountCard(() => {
+      this.setState({ isLoading: false });
+    });
   }
 
   render() {

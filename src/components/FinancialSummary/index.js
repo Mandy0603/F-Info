@@ -25,6 +25,7 @@ class FinancialSummary extends React.Component {
       });
     }
   }
+
   render() {
     const symbol = this.props.match.params.code;
 
@@ -40,10 +41,12 @@ class FinancialSummary extends React.Component {
             {!!this.props.summary.profile && this.props.summary.profile.sector}
           </div>
         </div>
+
         <div className="summary-ratingAndHistoricalPrice">
           <Rating symbol={symbol} />
-          <HistoricalPrice />
+          <HistoricalPrice symbol={symbol} />
         </div>
+
         <div className="summary-statements">
           <div className="summary-statements__incomeStatement">
             <IncomeStatement symbol={symbol} />

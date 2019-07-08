@@ -14,7 +14,7 @@ class Footer extends React.Component {
           aspernatur aut odit aut fugit, sed quia consequuntur
         </div>
 
-        <div class="footer-copyright">
+        <div className="footer-copyright">
           © 2019 Copyright:
           <span> Yandi Ma </span>
           <span className="footer-email">yandim0317@gmail.com</span>

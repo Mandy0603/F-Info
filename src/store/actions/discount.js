@@ -1,14 +1,18 @@
-import { FETCH_DISCOUNT_CARD, FETCH_DISCOUNT } from "./actionTypes";
+import {
+  FETCH_DISCOUNT_CARD,
+  FETCH_DISCOUNT,
+  FETCH_DISCOUNT_ERROR
+} from "./actionTypes";
 import axios from "axios";
 
-export const fetchDiscountCard = () => dispatch => {
+export const fetchDiscountCard = callback => dispatch => {
   const URL =
     "https://financialmodelingprep.com/api/v3/company/discounted-cash-flow/" +
     "EXLS,GST,HSGX,EVEP,TNTR";
   // EXLS,KELYB,GST,HSGX,EVEP
   axios.get(URL).then(res => {
     let discountCard = res.data.DCFList;
-    console.log(discountCard);
+    callback();
     return dispatch({
       type: FETCH_DISCOUNT_CARD,
       payload: discountCard
@@ -16,29 +20,32 @@ export const fetchDiscountCard = () => dispatch => {
   });
 };
 
-export const fetchDiscount = symbol => dispatch => {
+export const fetchDiscount = (symbol, callback) => dispatch => {
   const URL =
     "https://financialmodelingprep.com/api/v3/company/discounted-cash-flow/" +
     symbol;
   const URL_NAME =
     "https://financialmodelingprep.com/api/v3/company/profile/" + symbol;
-  let companyName;
+  let discountValue;
 
   axios
-    .get(URL_NAME)
+    .get(URL)
     .then(res => {
-      if (res.data.profile) {
-        companyName = res.data.profile.companyName;
-      }
+      discountValue = res.data;
+      return axios.get(URL_NAME);
     })
-    .then(
-      axios.get(URL).then(res => {
-        let discountValue = res.data;
-        discountValue.companyName = companyName;
-        return dispatch({
-          type: FETCH_DISCOUNT,
-          payload: discountValue
-        });
-      })
-    );
+    .then(res => {
+      discountValue.companyName = res.data.profile.companyName;
+      callback();
+      return dispatch({
+        type: FETCH_DISCOUNT,
+        payload: discountValue
+      });
+    })
+    .catch(err => {
+      return dispatch({
+        type: FETCH_DISCOUNT_ERROR,
+        payload: "Error"
+      });
+    });
 };

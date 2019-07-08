@@ -49,12 +49,17 @@ class IncomeStatement extends React.Component {
       "Earnings Before Tax Margin",
       "Net Profit Margin"
     ];
+    const URL =
+      "https://financialmodelingprep.com/api/v3/financials/income-statement/" +
+      this.props.symbol +
+      "?datatype=csv";
 
     return (
       <div className="statements-container">
-        <div className="statements-title">Income Statement</div>
         <div>
           <StatementTable
+            url={URL}
+            title="Income Statements"
             content={this.props.incomeStatement}
             tableHeads={tableHeads}
           />

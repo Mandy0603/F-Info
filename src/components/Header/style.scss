@@ -14,10 +14,18 @@
   padding: 7px 0px;
   display: flex;
   flex-wrap: nowrap;
+
   &-content {
     animation-name: marquee;
     animation-iteration-count: infinite;
-    animation-duration: 350s;
+    animation-timing-function: linear;
+    animation-duration: 150s;
+    animation-delay: 0.1s;
+    -webkit-animation-name: marquee;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-duration: 150s;
+    -webkit-animation-delay: 0.1s;
   }
   &-individual {
     width: 10%;
@@ -33,9 +41,11 @@
 
 @keyframes marquee {
   0% {
-    transform: translateX(0);
+    transform: translateX(30%);
+    -webkit-transform: -webkit-translateX(30%);
   }
   100% {
     transform: translateX(-100%);
+    -webkit-transform: -webkit-translateX(-100%);
   }
 }

@@ -4,21 +4,18 @@ import { connect } from "react-redux";
 import { fetchIndividualStock } from "../../../store/actions/stockPrice";
 
 class StockPriceDetail extends React.Component {
-  state = { stock: "" };
+  state = { isLoading: false };
   onFormSubmit = event => {
+    this.setState({ isLoading: true });
     event.preventDefault();
-    this.props.fetchIndividualStock(this.state.stock.toUpperCase());
+    this.props.fetchIndividualStock(this.state.stock.toUpperCase(), () => {
+      this.setState({ isLoading: false });
+    });
   };
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.stock !== this.props.stock) {
-      this.renderContent();
-    }
-  }
 
   renderContent = () => {
     if (!this.props.stock || this.props.stock.length === 0) return;
-    if (this.props.stock.Error) {
+    if (this.props.error === "Error") {
       return (
         <div style={{ color: "red", padding: "0 1rem" }}>
           No record found. Please check the company code you entered again
@@ -87,7 +84,8 @@ class StockPriceDetail extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    stock: state.stockPriceForCard.individualStock
+    stock: state.stockPriceForCard.individualStock,
+    error: state.stockPriceForCard.error
   };
 };
 
