@@ -19,7 +19,10 @@ export const fetchRating = (symbol, callback) => dispatch => {
       return axios.get(URL_SHARES);
     })
     .then(res => {
-      rating.shares = res.data.enterpriseValues[0]["Number of Shares"];
+      rating.shares =
+        res.data.enterpriseValues.length === 0
+          ? "-"
+          : res.data.enterpriseValues[0]["Number of Shares"];
       return axios.get(URL_DIVIDEND);
     })
     .then(res => {

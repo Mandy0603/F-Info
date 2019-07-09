@@ -24,6 +24,12 @@ class FinancialSummary extends React.Component {
         return { isLoading: !prevState.isLoading };
       });
     }
+    if (nextProps.match.params.code !== this.props.match.params.code) {
+      this.setState({ isLoading: true });
+      this.props.fetchSummary(nextProps.match.params.code, () => {
+        this.setState({ isLoading: false });
+      });
+    }
   }
 
   render() {
@@ -55,7 +61,7 @@ class FinancialSummary extends React.Component {
           </div>
         </div>
         <div className="summary-about">
-          <About />
+          <About symbol={symbol} />
         </div>
       </div>
     );

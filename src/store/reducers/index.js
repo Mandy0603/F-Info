@@ -10,6 +10,7 @@ import statementReducer from "./statementReducer";
 import summaryReducer from "./summaryReducer";
 import ratingReducer from "./ratingReducer";
 import stockChartsReducer from "./stockChartsReducer";
+import searchStockReducer from "./searchStockReducer";
 
 const reducers = combineReducers({
   majorIndex: indexReducer,
@@ -20,7 +21,8 @@ const reducers = combineReducers({
   statements: statementReducer,
   summary: summaryReducer,
   rating: ratingReducer,
-  stockCharts: stockChartsReducer
+  stockCharts: stockChartsReducer,
+  stockSearched: searchStockReducer
 });
 
 export default reducers;

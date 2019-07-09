@@ -14,6 +14,14 @@ class CashFlow extends React.Component {
       this.setState({ isLoading: false });
     });
   }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.symbol !== this.props.symbol) {
+      this.setState({ isLoading: true });
+      this.props.fetchCashFlow(nextProps.symbol, () => {
+        this.setState({ isLoading: false });
+      });
+    }
+  }
 
   render() {
     const tableHeads = [

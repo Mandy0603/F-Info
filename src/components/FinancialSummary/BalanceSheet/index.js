@@ -14,6 +14,14 @@ class BalanceSheet extends React.Component {
       this.setState({ isLoading: false });
     });
   }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.symbol !== this.props.symbol) {
+      this.setState({ isLoading: true });
+      this.props.fetchBalanceSheet(nextProps.symbol, () => {
+        this.setState({ isLoading: false });
+      });
+    }
+  }
 
   render() {
     const tableHeads = [

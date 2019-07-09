@@ -6,7 +6,10 @@ import "../style.scss";
 class About extends React.Component {
   state = { isLoading: false };
   componentWillReceiveProps(nextProps) {
-    if (nextProps.summary !== this.props.summary) {
+    if (
+      nextProps.summary !== this.props.summary ||
+      nextProps.symbol !== this.props.symbol
+    ) {
       this.setState(prevState => {
         return { isLoading: !prevState.isLoading };
       });

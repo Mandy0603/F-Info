@@ -62,9 +62,7 @@ class MajorIndexes extends React.Component {
   render() {
     return (
       <div className="index">
-        <div className="index-title" onClick={this.jumpToDetailPage}>
-          Major Indexes
-        </div>
+        <div className="index-title">Major Indexes</div>
         <div className="index-content">{this.renderIndexes()}</div>
       </div>
     );

@@ -13,10 +13,17 @@ class Rating extends React.Component {
       this.setState({ isLoading: false });
     });
   }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.summary !== this.props.summary) {
       this.setState(prevState => {
         return { summaryToggle: !prevState.summaryToggle };
+      });
+    }
+    if (nextProps.symbol !== this.props.symbol) {
+      this.setState({ isLoading: true });
+      this.props.fetchRating(nextProps.symbol, () => {
+        this.setState({ isLoading: false });
       });
     }
   }

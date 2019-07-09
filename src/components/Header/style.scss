@@ -1,9 +1,56 @@
-.navbar {
+.mynavbar {
   padding: 0.5rem 5rem;
-
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: rgb(233, 233, 233);
+  background-color: rgb(42, 43, 45);
   &-brand {
     font-size: 2rem;
     cursor: pointer;
+  }
+}
+.nav-form {
+  position: relative;
+  width: 300px;
+
+  &__input {
+    width: 100%;
+    margin-right: 0;
+    background-color: #fff;
+    border-radius: 5px 5px 0 0;
+    padding: 5px 1rem;
+  }
+  &__result {
+    position: absolute;
+    top: 100%;
+    max-height: 14rem;
+    overflow: auto;
+    width: 100%;
+    background-color: #fff;
+    color: rgb(42, 43, 45);
+    z-index: 100;
+  }
+}
+.result {
+  &-container {
+    padding: 7px 14px;
+    font-size: 1rem;
+    display: flex;
+    cursor: pointer;
+    border-bottom: 0.5px solid lightgray;
+
+    &:hover {
+      background-color: lightgray;
+    }
+  }
+  &-symbol {
+    font-weight: 700;
+  }
+  &-item {
+    &:not(:last-child) {
+      padding-right: 2px;
+    }
   }
 }
 

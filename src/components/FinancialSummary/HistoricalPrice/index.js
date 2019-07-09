@@ -15,6 +15,14 @@ class HistoricalPrice extends React.Component {
       this.setState({ isLoading: false });
     });
   }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.symbol !== this.props.symbol) {
+      this.setState({ isLoading: true });
+      this.props.fetchStockCharts(nextProps.symbol, () => {
+        this.setState({ isLoading: false });
+      });
+    }
+  }
 
   renderChart = () => {
     if (!this.props.stockCharts) {
