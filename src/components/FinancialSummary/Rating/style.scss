@@ -1,11 +1,15 @@
 .rating {
   &-container {
-    width: 50%;
+    width: 55%;
     padding: 1rem 3rem 0 0;
-    &__spinner {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    @media only screen and (max-width: 1024px) {
+      width: 100%;
+    }
+    &__empty {
+      width: 55%;
+      @media only screen and (max-width: 1024px) {
+        width: 100%;
+      }
     }
   }
   &-subcontainer {
@@ -29,4 +33,13 @@
 .star {
   padding-left: 1rem;
   color: gold;
+}
+
+.detail-rating-recommendation {
+  color: rgb(0, 158, 55);
+  border-bottom: 1px solid lightgray;
+}
+
+.rating-tables {
+  display: flex;
 }

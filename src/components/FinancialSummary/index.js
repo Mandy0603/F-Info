@@ -19,11 +19,6 @@ class FinancialSummary extends React.Component {
     });
   }
   componentWillReceiveProps(nextProps) {
-    if (nextProps.summary !== this.props.summary) {
-      this.setState(prevState => {
-        return { isLoading: !prevState.isLoading };
-      });
-    }
     if (nextProps.match.params.code !== this.props.match.params.code) {
       this.setState({ isLoading: true });
       this.props.fetchSummary(nextProps.match.params.code, () => {

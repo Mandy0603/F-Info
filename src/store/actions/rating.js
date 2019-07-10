@@ -4,6 +4,7 @@ import axios from "axios";
 export const fetchRating = (symbol, callback) => dispatch => {
   const URL =
     "https://financialmodelingprep.com/api/v3/company/rating/" + symbol;
+  const URL_PROFILE = "/api/v3/company/profile/" + symbol;
   const URL_SHARES =
     "https://financialmodelingprep.com/api/v3/enterprise-value/" + symbol;
   const URL_DIVIDEND =
@@ -16,6 +17,18 @@ export const fetchRating = (symbol, callback) => dispatch => {
     .get(URL)
     .then(res => {
       rating = res.data;
+      return axios.get(URL_PROFILE);
+    })
+    .then(res => {
+      rating.price =
+        res.data.profile.length === 0 ? "-" : res.data.profile.price;
+      rating.beta = res.data.profile.length === 0 ? "-" : res.data.profile.beta;
+      rating.volAvg =
+        res.data.profile.length === 0 ? "-" : res.data.profile.volAvg;
+      rating.mktCap =
+        res.data.profile.length === 0 ? "-" : res.data.profile.mktCap;
+      rating.lastDiv =
+        res.data.profile.length === 0 ? "-" : res.data.profile.lastDiv;
       return axios.get(URL_SHARES);
     })
     .then(res => {
@@ -57,7 +70,7 @@ export const fetchRating = (symbol, callback) => dispatch => {
         res.data.ratios.length === 0
           ? "-"
           : res.data.ratios[0].investmentValuationRatios.priceBookValueRatio;
-      callback();
+      if (callback) callback();
       return dispatch({
         type: FETCH_RATING,
         payload: rating

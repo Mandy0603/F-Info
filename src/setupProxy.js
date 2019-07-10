@@ -7,4 +7,10 @@ module.exports = function(app) {
       changeOrigin: true
     })
   );
+  app.use(
+    proxy("/api", {
+      target: "https://financialmodelingprep.com",
+      changeOrigin: true
+    })
+  );
 };

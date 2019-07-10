@@ -5,18 +5,22 @@ import { fetchCurrency } from "../../../store/actions/currency";
 import { formatMoney } from "../../../utility";
 
 class MajorIndexesDetailPage extends React.Component {
-  state = { toggle: true };
-  componentWillMount() {
-    this.props.fetchCurrency();
+  state = { isLoading: false };
+  componentDidMount() {
+    this.setState({ isLoading: true });
+    this.props.fetchCurrency(() => {
+      this.setState({ isLoading: false });
+    });
   }
+  // state = { toggle: false };
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.currency !== this.props.currency) {
-      this.setState(prevState => {
-        this.state.toggle = !prevState.toggle;
-      });
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.currency !== this.props.currency) {
+  //     this.setState(prevState => {
+  //       this.state.toggle = !prevState.toggle;
+  //     });
+  //   }
+  // }
 
   renderContent = () => {
     if (!this.props.currency || this.props.currency.length === 0) return;

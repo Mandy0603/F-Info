@@ -5,13 +5,16 @@ import { fetchCryptocurrency } from "../../../store/actions/cryptocurrency";
 import { formatMoney } from "../../../utility";
 
 class CryptocurrenciesDetail extends React.Component {
-  state = { toggle: true };
-  componentWillMount() {
-    this.props.fetchCryptocurrency();
+  state = { isLoading: false };
+
+  componentDidMount() {
+    this.setState({ isLoading: true });
+    this.props.fetchCryptocurrency(() => {
+      this.setState({ isLoading: false });
+    });
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     if (nextProps.cryptoCurrency !== this.props.cryptoCurrency) {
       this.setState(prevState => {
         this.state.toggle = !prevState.toggle;

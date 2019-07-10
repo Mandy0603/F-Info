@@ -6,7 +6,7 @@ export const searchStock = (words, callback) => dispatch => {
   const URL = "/web/v2/tickers?symbol=" + words + "&count=20";
   axios.get(URL).then(res => {
     let stockList = res.data;
-    callback();
+    if (callback) callback();
     return dispatch({
       type: SEARCH_STOCK,
       payload: stockList
@@ -15,7 +15,7 @@ export const searchStock = (words, callback) => dispatch => {
 };
 
 export const clearSearchResult = callback => dispatch => {
-  callback();
+  if (callback) callback();
   return dispatch({
     type: CLEAR_SEARCH_RESULT
   });

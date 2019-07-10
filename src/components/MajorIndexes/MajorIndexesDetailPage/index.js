@@ -56,10 +56,18 @@ class MajorIndexesDetailPage extends React.Component {
           <table class="table table-striped">
             <thead>
               <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Price</th>
-                <th scope="col">Change</th>
-                <th scope="col">Change(%)</th>
+                <th className="index-detail__th" scope="col">
+                  Name
+                </th>
+                <th className="index-detail__th" scope="col">
+                  Price
+                </th>
+                <th className="index-detail__th" scope="col">
+                  Change
+                </th>
+                <th className="index-detail__th" scope="col">
+                  Change(%)
+                </th>
               </tr>
             </thead>
             <tbody>{this.renderContent()}</tbody>

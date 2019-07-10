@@ -17,11 +17,15 @@
   }
   &-ratingAndHistoricalPrice {
     display: flex;
+    @media only screen and (max-width: 1024px) {
+      flex-direction: column;
+    }
   }
 }
 .statements {
   &-container {
     padding: 1rem 0;
+    overflow-x: auto;
   }
   &-title {
     color: rgb(42, 43, 45);
@@ -43,6 +47,9 @@
 
 .table {
   color: rgb(42, 43, 45);
+  &-statements {
+    overflow-x: auto;
+  }
 }
 
 .about {

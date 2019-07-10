@@ -4,9 +4,12 @@ import { connect } from "react-redux";
 import { fetchCurrencyCard } from "../../store/actions/currency";
 
 class ForeignCurrency extends React.Component {
-  state = { toggle: true };
-  componentWillMount() {
-    this.props.fetchCurrencyCard();
+  state = { isLoading: true };
+  componentDidMount() {
+    this.setState({ isLoading: true });
+    this.props.fetchCurrencyCard(() => {
+      this.setState({ isLoading: false });
+    });
   }
 
   componentWillReceiveProps(nextProps) {

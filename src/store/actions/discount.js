@@ -12,7 +12,7 @@ export const fetchDiscountCard = callback => dispatch => {
   // EXLS,KELYB,GST,HSGX,EVEP
   axios.get(URL).then(res => {
     let discountCard = res.data.DCFList;
-    callback();
+    if (callback) callback();
     return dispatch({
       type: FETCH_DISCOUNT_CARD,
       payload: discountCard
@@ -36,7 +36,7 @@ export const fetchDiscount = (symbol, callback) => dispatch => {
     })
     .then(res => {
       discountValue.companyName = res.data.profile.companyName;
-      callback();
+      if (callback) callback();
       return dispatch({
         type: FETCH_DISCOUNT,
         payload: discountValue

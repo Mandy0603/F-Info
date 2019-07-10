@@ -6,12 +6,10 @@ import {
 import axios from "axios";
 
 export const fetchStockPriceCard = callback => dispatch => {
-  const URL =
-    "https://financialmodelingprep.com/api/v3/stock/real-time-price/" +
-    "AAPL,MSFT,FB,ZNGA,NVDA";
+  const URL = "/api/v3/stock/real-time-price/" + "AAPL,MSFT,FB,ZNGA,NVDA";
   axios.get(URL).then(res => {
     let stockPriceCard = res.data.companiesPriceList;
-    callback();
+    if (callback) callback();
     return dispatch({
       type: FETCH_STOCK_PRICE_CARD,
       payload: stockPriceCard
@@ -37,7 +35,7 @@ export const fetchIndividualStock = (symbol, callback) => dispatch => {
       stockPrice.companyName = res.data.profile.companyName;
       stockPrice.industry = res.data.profile.industry;
 
-      callback();
+      if (callback) callback();
       return dispatch({
         type: FETCH_INDIVIDUAL_STOCK,
         payload: stockPrice

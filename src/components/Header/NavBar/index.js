@@ -64,6 +64,9 @@ class NavBar extends React.Component {
     }
     return searchResult;
   };
+  onFormSubmit = event => {
+    event.preventDefault();
+  };
   render() {
     return (
       <div className="mynavbar">
@@ -71,11 +74,17 @@ class NavBar extends React.Component {
           Financial Info
         </div>
 
-        <form className="nav-form" ref={node => (this.node = node)}>
+        <form
+          onSubmit={e => {
+            this.onFormSubmit(e);
+          }}
+          className="nav-form"
+          ref={node => (this.node = node)}
+        >
           <input
             className="nav-form__input"
             type="search"
-            placeholder="Search Stock..."
+            placeholder="Search Stock... e.g. AAPL"
             aria-label="Search"
             value={this.state.value}
             onChange={text => {

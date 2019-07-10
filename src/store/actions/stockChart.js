@@ -11,15 +11,21 @@ export const fetchStockCharts = (symbol, callback) => dispatch => {
     symbol +
     "?serietype=candle";
   let stockChart = { candleChart: null };
-  axios.get(URL).then(res => {
-    stockChart = res.data.historical;
-    for (let i = 0; i < stockChart.length; i++) {
-      stockChart[i].date = parseDate(stockChart[i].date);
-    }
-    callback();
-    return dispatch({
-      type: FETCH_STOCK_CHARTS,
-      payload: stockChart
+  axios
+    .get(URL)
+    .then(res => {
+      stockChart = res.data.historical;
+
+      for (let i = 0; i < stockChart.length; i++) {
+        stockChart[i].date = parseDate(stockChart[i].date);
+      }
+      if (callback) callback();
+      return dispatch({
+        type: FETCH_STOCK_CHARTS,
+        payload: stockChart
+      });
+    })
+    .catch(err => {
+      return;
     });
-  });
 };

@@ -125,7 +125,7 @@ class Card extends React.Component {
           </div>
           <div className="table-row__right">
             <div className="table-price">
-              {Number.parseFloat(bid).toFixed(2) + "$"}
+              {Number.parseFloat(bid).toFixed(2)}
             </div>
             <div
               className="table-changes"

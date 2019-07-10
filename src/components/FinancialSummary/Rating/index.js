@@ -30,6 +30,8 @@ class Rating extends React.Component {
 
   renderStar = () => {
     if (this.props.rating.rating) {
+      if (this.props.rating.rating.score.length === 0) return "-";
+
       const figure = Number.parseFloat(this.props.rating.rating.score);
       let starSet = [];
       for (let i = 0; i < figure; i++) {
@@ -39,8 +41,8 @@ class Rating extends React.Component {
     }
   };
   render() {
-    if (this.props.rating.length === 0) {
-      return <div className="rating-container__spinner" />;
+    if (this.props.rating.length === 0 || this.state.isLoading) {
+      return <div className="rating-container__empty" />;
     } else {
       return (
         <div className="rating-container">
@@ -53,15 +55,17 @@ class Rating extends React.Component {
               <div>
                 <span className="rating-subtitle">Recommendation:</span>
                 <span className="rating-recommendation">
-                  {!!this.props.rating.rating &&
-                    this.props.rating.rating.recommendation}
+                  {(!!this.props.rating.rating &&
+                    this.props.rating.rating.recommendation) ||
+                    "-"}
                 </span>
               </div>
               <div>
                 <span className="rating-subtitle">Score:</span>
                 <span className="rating-recommendation">
-                  {!!this.props.rating.rating &&
-                    this.props.rating.rating.rating}
+                  {(!!this.props.rating.rating &&
+                    this.props.rating.rating.rating) ||
+                    "-"}
                 </span>
               </div>
             </div>
@@ -74,91 +78,104 @@ class Rating extends React.Component {
                   <td>{this.props.symbol.toUpperCase()}</td>
                   <th scope="row">ROE</th>
                   <td>
-                    {!!this.props.rating.roe && this.props.rating.roe === "-"
+                    {this.props.rating.roe === "-"
                       ? "-"
                       : (this.props.rating.roe * 100).toFixed(2) + "%"}
+                  </td>
+                  <td className="detail-rating-recommendation">
+                    {this.props.rating.ratingDetails.ROE.recommendation}
                   </td>
                 </tr>
                 <tr>
                   <th scope="row">Price</th>
                   <td>
-                    {!!this.props.summary.profile &&
-                      formatMoney(this.props.summary.profile.price) + "$"}
+                    {this.props.rating.price === "-"
+                      ? "-"
+                      : formatMoney(this.props.rating.price) + "$"}
                   </td>
                   <th scope="row">ROA</th>
                   <td>
-                    {!!this.props.rating.roa && this.props.rating.roa === "-"
+                    {this.props.rating.roa === "-"
                       ? "-"
                       : (this.props.rating.roa * 100).toFixed(2) + "%"}
+                  </td>
+                  <td className="detail-rating-recommendation">
+                    {this.props.rating.ratingDetails.ROA.recommendation}
                   </td>
                 </tr>
                 <tr>
                   <th scope="row">Beta</th>
                   <td>
-                    {!!this.props.summary.profile &&
-                      Number.parseFloat(
-                        this.props.summary.profile.beta
-                      ).toFixed(2)}
+                    {this.props.rating.beta === "-"
+                      ? "-"
+                      : Number.parseFloat(this.props.rating.beta).toFixed(2)}
                   </td>
                   <th scope="row">Operating Margin</th>
                   <td>
-                    {!!this.props.rating.opMargin &&
-                    this.props.rating.opMargin === "-"
+                    {this.props.rating.opMargin === "-"
                       ? "-"
                       : (this.props.rating.opMargin * 100).toFixed(2) + "%"}
                   </td>
+                  <td className="detail-rating-recommendation">{"-"}</td>
                 </tr>
                 <tr>
                   <th scope="row">Volume Avrg.</th>
                   <td>
-                    {!!this.props.summary.profile &&
-                      formatMoney(
-                        Number.parseFloat(this.props.summary.profile.volAvg) /
-                          1000000
-                      ) + "M"}
+                    {this.props.rating.volAvg === "-"
+                      ? "-"
+                      : (
+                          Number.parseFloat(this.props.rating.volAvg) / 1000000
+                        ).toFixed(2) + "M"}
                   </td>
                   <th scope="row">Debt / Equity</th>
-                  <td>{!!this.props.rating.de && this.props.rating.de}</td>
+                  <td>{this.props.rating.de}</td>
+                  <td className="detail-rating-recommendation">
+                    {this.props.rating.ratingDetails["D/E"].recommendation}
+                  </td>
                 </tr>
                 <tr>
                   <th scope="row">Market Cap</th>
                   <td>
-                    {!!this.props.summary.profile &&
-                      formatMoney(
-                        Number.parseFloat(this.props.summary.profile.mktCap) /
-                          1000000000
-                      ) + "B"}
+                    {this.props.rating.mktCap === "-"
+                      ? "-"
+                      : formatMoney(
+                          Number.parseFloat(this.props.rating.mktCap) /
+                            1000000000
+                        ) + "B"}
                   </td>
                   <th scope="row">P/E</th>
-                  <td>{!!this.props.rating.pe && this.props.rating.pe}</td>
+                  <td>{this.props.rating.pe}</td>
+                  <td className="detail-rating-recommendation">
+                    {this.props.rating.ratingDetails["P/E"].recommendation}
+                  </td>
                 </tr>
                 <tr>
                   <th scope="row">Shares (2018)</th>
                   <td>
-                    {!!this.props.rating.shares &&
-                      formatMoney(
-                        Number.parseFloat(this.props.rating.shares) / 1000
-                      ) + "K"}
+                    {this.props.rating.shares === "-"
+                      ? "-"
+                      : formatMoney(
+                          Number.parseFloat(this.props.rating.shares) / 1000
+                        ) + "K"}
                   </td>
                   <th scope="row">P/B</th>
-                  <td>{!!this.props.rating.pb && this.props.rating.pb}</td>
+                  <td>{this.props.rating.pb}</td>
+                  <td className="detail-rating-recommendation">
+                    {this.props.rating.ratingDetails["P/B"].recommendation}
+                  </td>
                 </tr>
                 <tr>
                   <th scope="row">Last Div</th>
-                  <td>
-                    {!!this.props.summary.profile &&
-                      this.props.summary.profile.lastDiv}
-                  </td>
+                  <td>{this.props.rating.lastDiv}</td>
                   <th scope="row" />
+                  <td />
                   <td />
                 </tr>
                 <tr>
                   <th scope="row">Dividend Yield</th>
-                  <td>
-                    {!!this.props.rating.dividendYield &&
-                      this.props.rating.dividendYield}
-                  </td>
+                  <td>{this.props.rating.dividendYield}</td>
                   <th scope="row" />
+                  <td />
                   <td />
                 </tr>
               </tbody>

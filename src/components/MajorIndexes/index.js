@@ -7,18 +7,13 @@ import history from "../../history";
 import "./style.scss";
 
 class MajorIndexes extends React.Component {
-  state = { toggle: true };
+  state = { isLoading: false };
 
-  componentWillMount() {
-    this.props.fetchIndex();
-  }
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
-    if (nextProps.majorIndex) {
-      this.setState(prevState => {
-        this.state.toggle = !prevState.toggle;
-      });
-    }
+  componentDidMount() {
+    this.setState({ isLoading: true });
+    this.props.fetchIndex(() => {
+      this.setState({ isLoading: false });
+    });
   }
 
   jumpToDetailPage = () => {

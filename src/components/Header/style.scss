@@ -5,14 +5,27 @@
   align-items: center;
   color: rgb(233, 233, 233);
   background-color: rgb(42, 43, 45);
+  @media only screen and (max-width: 568px) {
+    flex-direction: column;
+  }
+  @media only screen and (max-width: 414px) {
+    padding: 1rem 2rem;
+  }
   &-brand {
     font-size: 2rem;
     cursor: pointer;
+    @media only screen and (max-width: 414px) {
+      font-size: 2rem;
+      padding-bottom: 1rem;
+    }
   }
 }
 .nav-form {
   position: relative;
   width: 300px;
+  @media only screen and (max-width: 568px) {
+    width: 100%;
+  }
 
   &__input {
     width: 100%;
@@ -61,6 +74,7 @@
   padding: 7px 0px;
   display: flex;
   flex-wrap: nowrap;
+  overflow: hidden;
 
   &-content {
     animation-name: marquee;

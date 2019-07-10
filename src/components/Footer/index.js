@@ -7,15 +7,17 @@ class Footer extends React.Component {
     return (
       <div className="footer">
         <div className="footer-text">
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
-          ab illo inventore veritatis et quasi architecto beatae vitae dicta
-          sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-          aspernatur aut odit aut fugit, sed quia consequuntur
+          This website is built for pure purpose of practice. All data and UI
+          design come from https://financialmodelingprep.com/. All rights
+          belongs to
+          <span style={{ textDecoration: "underline", paddingLeft: "5px" }}>
+            The Financial Modeling Prep Company
+          </span>
+          .
         </div>
 
         <div className="footer-copyright">
-          © 2019 Copyright:
+          Contact Info:
           <span> Yandi Ma </span>
           <span className="footer-email">yandim0317@gmail.com</span>
         </div>

@@ -4,9 +4,12 @@ import { connect } from "react-redux";
 import { fetchCryptoCard } from "../../store/actions/cryptocurrency";
 
 class Cryptocurrencies extends React.Component {
-  state = { toggle: true };
-  componentWillMount() {
-    this.props.fetchCryptoCard();
+  state = { isLoading: false };
+  componentDidMount() {
+    this.setState({ isLoading: true });
+    this.props.fetchCryptoCard(() => {
+      this.setState({ isLoading: false });
+    });
   }
 
   componentWillReceiveProps(nextProps) {

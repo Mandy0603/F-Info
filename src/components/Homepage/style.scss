@@ -1,5 +1,11 @@
 .homepage {
   padding: 2rem 6rem;
+  @media only screen and (max-width: 768px) {
+    padding: 2rem 4rem;
+  }
+  @media only screen and (max-width: 375px) {
+    padding: 1rem 2rem;
+  }
   &-upper {
     width: 100%;
   }
@@ -12,6 +18,9 @@
   &-quarter {
     margin-top: 1rem;
     width: 48%;
+    @media only screen and (max-width: 667px) {
+      width: 100%;
+    }
   }
 }
 .table {

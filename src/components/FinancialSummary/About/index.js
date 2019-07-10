@@ -16,8 +16,7 @@ class About extends React.Component {
     }
   }
   render() {
-    if (!this.props.summary || this.props.summary.length === 0)
-      return <div>isLoading</div>;
+    if (!this.props.summary || this.props.summary.length === 0) return <div />;
     const {
       ceo,
       sector,

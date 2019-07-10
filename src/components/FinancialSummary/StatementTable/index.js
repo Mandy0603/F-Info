@@ -61,7 +61,7 @@ class StatementTable extends React.Component {
             <img src={require("../../../assets/icons/csv.png")} />
           </a>
         </div>
-        <table className="table table-striped">
+        <table className="table table-striped table-statements">
           <thead>
             <tr>
               <th scope="col">Year</th>

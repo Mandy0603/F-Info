@@ -11,7 +11,7 @@ export const fetchIncomeStatement = (symbol, callback) => dispatch => {
     "https://financialmodelingprep.com/api/v3/financials/income-statement/" +
     symbol;
   axios.get(URL).then(res => {
-    callback();
+    if (callback) callback();
     let incomeStatement = res.data;
     return dispatch({
       type: FETCH_INCOME_STATEMENT,
@@ -25,7 +25,7 @@ export const fetchBalanceSheet = (symbol, callback) => dispatch => {
     "https://financialmodelingprep.com/api/v3/financials/balance-sheet-statement/" +
     symbol;
   axios.get(URL).then(res => {
-    callback();
+    if (callback) callback();
     let incomeStatement = res.data;
     return dispatch({
       type: FETCH_BALANCE_SHEET,
@@ -38,7 +38,7 @@ export const fetchCashFlow = (symbol, callback) => dispatch => {
     "https://financialmodelingprep.com/api/v3/financials/cash-flow-statement/" +
     symbol;
   axios.get(URL).then(res => {
-    callback();
+    if (callback) callback();
     let incomeStatement = res.data;
     return dispatch({
       type: FETCH_CASH_FLOW,
