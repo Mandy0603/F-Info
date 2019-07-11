@@ -6,13 +6,21 @@ import { formatMoney } from "../../../utility";
 
 class CryptocurrenciesDetail extends React.Component {
   state = { isLoading: false };
-
   componentDidMount() {
+    this.fetchDataWhenMounted();
+    this.timerID = setInterval(() => {
+      this.fetchDataWhenMounted();
+    }, 300000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+  fetchDataWhenMounted = () => {
     this.setState({ isLoading: true });
     this.props.fetchCryptocurrency(() => {
       this.setState({ isLoading: false });
     });
-  }
+  };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.cryptoCurrency !== this.props.cryptoCurrency) {

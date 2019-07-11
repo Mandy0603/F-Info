@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import { fetchRating } from "../../../store/actions/rating";
 import { formatMoney } from "../../../utility";
+import Spinner2 from "../../Spinner2";
 import "./style.scss";
 
 class Rating extends React.Component {
@@ -40,9 +41,14 @@ class Rating extends React.Component {
       return starSet;
     }
   };
+
   render() {
     if (this.props.rating.length === 0 || this.state.isLoading) {
-      return <div className="rating-container__empty" />;
+      return (
+        <div className="rating-container__empty">
+          <Spinner2 />
+        </div>
+      );
     } else {
       return (
         <div className="rating-container">
@@ -70,21 +76,12 @@ class Rating extends React.Component {
               </div>
             </div>
           </div>
-          <div>
-            <table class="table">
+          <div className="rating-tables">
+            <table class="table rating-tables__1">
               <tbody>
                 <tr>
                   <th scope="row">Symbol</th>
                   <td>{this.props.symbol.toUpperCase()}</td>
-                  <th scope="row">ROE</th>
-                  <td>
-                    {this.props.rating.roe === "-"
-                      ? "-"
-                      : (this.props.rating.roe * 100).toFixed(2) + "%"}
-                  </td>
-                  <td className="detail-rating-recommendation">
-                    {this.props.rating.ratingDetails.ROE.recommendation}
-                  </td>
                 </tr>
                 <tr>
                   <th scope="row">Price</th>
@@ -92,15 +89,6 @@ class Rating extends React.Component {
                     {this.props.rating.price === "-"
                       ? "-"
                       : formatMoney(this.props.rating.price) + "$"}
-                  </td>
-                  <th scope="row">ROA</th>
-                  <td>
-                    {this.props.rating.roa === "-"
-                      ? "-"
-                      : (this.props.rating.roa * 100).toFixed(2) + "%"}
-                  </td>
-                  <td className="detail-rating-recommendation">
-                    {this.props.rating.ratingDetails.ROA.recommendation}
                   </td>
                 </tr>
                 <tr>
@@ -110,13 +98,6 @@ class Rating extends React.Component {
                       ? "-"
                       : Number.parseFloat(this.props.rating.beta).toFixed(2)}
                   </td>
-                  <th scope="row">Operating Margin</th>
-                  <td>
-                    {this.props.rating.opMargin === "-"
-                      ? "-"
-                      : (this.props.rating.opMargin * 100).toFixed(2) + "%"}
-                  </td>
-                  <td className="detail-rating-recommendation">{"-"}</td>
                 </tr>
                 <tr>
                   <th scope="row">Volume Avrg.</th>
@@ -126,11 +107,6 @@ class Rating extends React.Component {
                       : (
                           Number.parseFloat(this.props.rating.volAvg) / 1000000
                         ).toFixed(2) + "M"}
-                  </td>
-                  <th scope="row">Debt / Equity</th>
-                  <td>{this.props.rating.de}</td>
-                  <td className="detail-rating-recommendation">
-                    {this.props.rating.ratingDetails["D/E"].recommendation}
                   </td>
                 </tr>
                 <tr>
@@ -143,11 +119,6 @@ class Rating extends React.Component {
                             1000000000
                         ) + "B"}
                   </td>
-                  <th scope="row">P/E</th>
-                  <td>{this.props.rating.pe}</td>
-                  <td className="detail-rating-recommendation">
-                    {this.props.rating.ratingDetails["P/E"].recommendation}
-                  </td>
                 </tr>
                 <tr>
                   <th scope="row">Shares (2018)</th>
@@ -158,23 +129,81 @@ class Rating extends React.Component {
                           Number.parseFloat(this.props.rating.shares) / 1000
                         ) + "K"}
                   </td>
-                  <th scope="row">P/B</th>
-                  <td>{this.props.rating.pb}</td>
-                  <td className="detail-rating-recommendation">
-                    {this.props.rating.ratingDetails["P/B"].recommendation}
-                  </td>
                 </tr>
                 <tr>
                   <th scope="row">Last Div</th>
                   <td>{this.props.rating.lastDiv}</td>
-                  <th scope="row" />
-                  <td />
-                  <td />
                 </tr>
                 <tr>
                   <th scope="row">Dividend Yield</th>
                   <td>{this.props.rating.dividendYield}</td>
-                  <th scope="row" />
+                </tr>
+              </tbody>
+            </table>
+            <table class="table rating-tables__2" id="table2">
+              <tbody>
+                <tr>
+                  <th scope="row">ROE</th>
+                  <td>
+                    {this.props.rating.roe === "-"
+                      ? "-"
+                      : (this.props.rating.roe * 100).toFixed(2) + "%"}
+                  </td>
+                  <td className="detail-rating-recommendation">
+                    {this.props.rating.ratingDetails.ROE.recommendation || "-"}
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">ROA</th>
+                  <td>
+                    {this.props.rating.roa === "-"
+                      ? "-"
+                      : (this.props.rating.roa * 100).toFixed(2) + "%"}
+                  </td>
+                  <td className="detail-rating-recommendation">
+                    {this.props.rating.ratingDetails.ROA.recommendation || "-"}
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Operating Margin</th>
+                  <td>
+                    {this.props.rating.opMargin === "-"
+                      ? "-"
+                      : (this.props.rating.opMargin * 100).toFixed(2) + "%"}
+                  </td>
+                  <td className="detail-rating-recommendation">{"-"}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Debt / Equity</th>
+                  <td>{this.props.rating.de}</td>
+                  <td className="detail-rating-recommendation">
+                    {this.props.rating.ratingDetails["D/E"].recommendation ||
+                      "-"}
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">P/E</th>
+                  <td>{this.props.rating.pe}</td>
+                  <td className="detail-rating-recommendation">
+                    {this.props.rating.ratingDetails["P/E"].recommendation ||
+                      "-"}
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">P/B</th>
+                  <td>{this.props.rating.pb}</td>
+                  <td className="detail-rating-recommendation">
+                    {this.props.rating.ratingDetails["P/B"].recommendation ||
+                      "-"}
+                  </td>
+                </tr>
+                <tr>
+                  <th>&nbsp;</th>
+                  <td />
+                  <td />
+                </tr>
+                <tr>
+                  <th>&nbsp;</th>
                   <td />
                   <td />
                 </tr>

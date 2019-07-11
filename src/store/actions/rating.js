@@ -4,7 +4,8 @@ import axios from "axios";
 export const fetchRating = (symbol, callback) => dispatch => {
   const URL =
     "https://financialmodelingprep.com/api/v3/company/rating/" + symbol;
-  const URL_PROFILE = "/api/v3/company/profile/" + symbol;
+  const URL_PROFILE =
+    "https://financialmodelingprep.com/api/v3/company/profile/" + symbol;
   const URL_SHARES =
     "https://financialmodelingprep.com/api/v3/enterprise-value/" + symbol;
   const URL_DIVIDEND =

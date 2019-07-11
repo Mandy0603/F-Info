@@ -7,20 +7,20 @@ import { formatMoney } from "../../../utility";
 class MajorIndexesDetailPage extends React.Component {
   state = { isLoading: false };
   componentDidMount() {
+    this.fetchDataWhenMounted();
+    this.timerID = setInterval(() => {
+      this.fetchDataWhenMounted();
+    }, 300000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+  fetchDataWhenMounted = () => {
     this.setState({ isLoading: true });
     this.props.fetchCurrency(() => {
       this.setState({ isLoading: false });
     });
-  }
-  // state = { toggle: false };
-
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.currency !== this.props.currency) {
-  //     this.setState(prevState => {
-  //       this.state.toggle = !prevState.toggle;
-  //     });
-  //   }
-  // }
+  };
 
   renderContent = () => {
     if (!this.props.currency || this.props.currency.length === 0) return;

@@ -5,12 +5,22 @@ import { fetchDiscountCard } from "../../store/actions/discount";
 
 class DiscountCashFlow extends React.Component {
   state = { isLoading: false };
+
   componentDidMount() {
+    this.fetchDataWhenMounted();
+    this.timerID = setInterval(() => {
+      this.fetchDataWhenMounted();
+    }, 300000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+  fetchDataWhenMounted = () => {
     this.setState({ isLoading: true });
     this.props.fetchDiscountCard(() => {
       this.setState({ isLoading: false });
     });
-  }
+  };
 
   render() {
     return (

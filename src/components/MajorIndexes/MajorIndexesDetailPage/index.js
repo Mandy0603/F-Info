@@ -5,18 +5,22 @@ import { fetchIndex } from "../../../store/actions/majorIndex";
 import { formatMoney } from "../../../utility";
 
 class MajorIndexesDetailPage extends React.Component {
-  state = { toggle: true };
-  componentWillMount() {
-    this.props.fetchIndex();
+  state = { isLoading: false };
+  componentDidMount() {
+    this.fetchDataWhenMounted();
+    this.timerID = setInterval(() => {
+      this.fetchDataWhenMounted();
+    }, 300000);
   }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.indexes !== this.props.indexes) {
-      this.setState(prevState => {
-        this.state.toggle = !prevState.toggle;
-      });
-    }
+  componentWillUnmount() {
+    clearInterval(this.timerID);
   }
+  fetchDataWhenMounted = () => {
+    this.setState({ isLoading: true });
+    this.props.fetchIndex(() => {
+      this.setState({ isLoading: false });
+    });
+  };
 
   renderContent = () => {
     if (!this.props.indexes || this.props.indexes.length === 0) return;

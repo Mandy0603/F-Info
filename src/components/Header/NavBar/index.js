@@ -1,10 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import {
-  searchStock,
-  clearSearchResult
-} from "../../../store/actions/searchStock";
+import { searchStock } from "../../../store/actions/searchStock";
 
+import Modal from "../../Modal";
 import history from "../../../history";
 
 import "../style.scss";
@@ -12,62 +10,35 @@ import "../style.scss";
 class NavBar extends React.Component {
   state = { value: "", isLoading: false };
   componentDidMount() {
-    document.addEventListener("click", this.handleClick, false);
+    this.setState({ isLoading: true });
+    this.props.searchStock(() => {
+      this.setState({ isLoading: false });
+    });
   }
-  componentWillUnmount() {
-    document.removeEventListener("click", this.handleClick, false);
-  }
-  handleClick = e => {
-    if (this.node.contains(e.target)) {
-      return;
-    }
-    this.onInputBlur();
-  };
 
-  handleStockSearch = () => {
-    this.setState({ isLoading: true });
-    this.props.searchStock(this.state.value, () => {
-      this.setState({ isLoading: false });
-    });
-  };
-  clearResult = () => {
-    this.setState({ isLoading: true });
-    this.props.clearSearchResult(() => {
-      this.setState({ isLoading: false });
-    });
-  };
-  onInputBlur = () => {
-    this.setState({ value: "" });
-    this.clearResult();
-  };
-  onItemSelected = symbol => {
-    history.push(`/financial-summary/${symbol}`);
-    this.onInputBlur();
-  };
   renderSearchResult = () => {
     if (!this.props.stockList || this.props.stockList.length === 0) return;
     let searchResult = [];
     for (let i = 0; i < this.props.stockList.length; i++) {
       const { symbol, name } = this.props.stockList[i];
       searchResult.push(
-        <div
-          className="result-container"
-          onClick={() => {
-            this.onItemSelected(symbol);
-          }}
-        >
-          <div className="result-item result-symbol">{symbol}</div>
-          <div className="result-item">{"|"}</div>
-          <div className="result-item">{name}</div>
-        </div>
+        <option className="nav-form__option" value={`${symbol}`}>
+          {name}
+        </option>
       );
     }
     return searchResult;
   };
-  onFormSubmit = event => {
-    event.preventDefault();
+
+  handleFormSubmit = e => {
+    e.preventDefault();
+    history.push(`/financial-summary/${this.state.value}`);
+    this.setState({ value: "" });
   };
   render() {
+    if (this.state.isLoading) {
+      return <Modal />;
+    }
     return (
       <div className="mynavbar">
         <div className="mynavbar-brand" onClick={() => history.push("/")}>
@@ -75,24 +46,29 @@ class NavBar extends React.Component {
         </div>
 
         <form
-          onSubmit={e => {
-            this.onFormSubmit(e);
-          }}
           className="nav-form"
-          ref={node => (this.node = node)}
+          onSubmit={e => {
+            this.handleFormSubmit(e);
+          }}
         >
           <input
             className="nav-form__input"
             type="search"
-            placeholder="Search Stock... e.g. AAPL"
-            aria-label="Search"
             value={this.state.value}
-            onChange={text => {
-              this.setState({ value: text.target.value });
+            placeholder="Search Stock"
+            aria-label="Search"
+            list="stockSearchResult"
+            autoComplete={true}
+            onChange={e => {
+              this.setState({ value: e.target.value });
             }}
-            onKeyUp={this.handleStockSearch}
           />
-          <div className="nav-form__result">{this.renderSearchResult()}</div>
+          <datalist id="stockSearchResult" className="nav-form__result">
+            {this.renderSearchResult()}
+          </datalist>
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+            Search
+          </button>
         </form>
       </div>
     );
@@ -104,5 +80,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { searchStock, clearSearchResult }
+  { searchStock }
 )(NavBar);

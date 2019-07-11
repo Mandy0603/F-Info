@@ -2,11 +2,17 @@
   &-container {
     width: 55%;
     padding: 1rem 3rem 0 0;
+
     @media only screen and (max-width: 1024px) {
       width: 100%;
+      padding: 0;
     }
     &__empty {
       width: 55%;
+      height: 30rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       @media only screen and (max-width: 1024px) {
         width: 100%;
       }
@@ -15,6 +21,9 @@
   &-subcontainer {
     display: flex;
     justify-content: space-between;
+    @media only screen and (max-width: 414px) {
+      flex-direction: column;
+    }
   }
   &-subtitle {
     font-weight: 600;
@@ -27,6 +36,13 @@
     font-size: 2rem;
     color: #636b6f;
     padding-left: 3px;
+    @media only screen and (max-width: 667px) {
+      font-size: 1.5rem;
+    }
+    @media only screen and (max-width: 414px) {
+      font-size: 1rem;
+      color: rgb(0, 158, 55);
+    }
   }
 }
 
@@ -42,4 +58,22 @@
 
 .rating-tables {
   display: flex;
+  overflow-x: auto;
+
+  &__1 {
+    width: 45%;
+    min-width: 262px;
+  }
+  &__2 {
+    width: 55%;
+    min-width: 320px;
+  }
+}
+.table {
+  border-left: none;
+  border-right: none;
+}
+th,
+td {
+  word-wrap: nowrap;
 }

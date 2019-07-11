@@ -6,11 +6,20 @@ import { fetchCurrencyCard } from "../../store/actions/currency";
 class ForeignCurrency extends React.Component {
   state = { isLoading: true };
   componentDidMount() {
+    this.fetchDataWhenMounted();
+    this.timerID = setInterval(() => {
+      this.fetchDataWhenMounted();
+    }, 300000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+  fetchDataWhenMounted = () => {
     this.setState({ isLoading: true });
     this.props.fetchCurrencyCard(() => {
       this.setState({ isLoading: false });
     });
-  }
+  };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.currencyCard !== this.props.currencyCard) {

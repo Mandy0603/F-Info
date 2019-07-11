@@ -61,15 +61,17 @@ class StatementTable extends React.Component {
             <img src={require("../../../assets/icons/csv.png")} />
           </a>
         </div>
-        <table className="table table-striped table-statements">
-          <thead>
-            <tr>
-              <th scope="col">Year</th>
-              {this.renderFirstRow(this.props.content)}
-            </tr>
-          </thead>
-          <tbody>{this.renderContent(this.props.content)}</tbody>
-        </table>
+        <div className="statements-individual-container">
+          <table className="table table-striped ">
+            <thead>
+              <tr>
+                <th scope="col">Year</th>
+                {this.renderFirstRow(this.props.content)}
+              </tr>
+            </thead>
+            <tbody>{this.renderContent(this.props.content)}</tbody>
+          </table>
+        </div>
       </div>
     );
   }

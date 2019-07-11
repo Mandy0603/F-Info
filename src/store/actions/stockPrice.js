@@ -6,7 +6,9 @@ import {
 import axios from "axios";
 
 export const fetchStockPriceCard = callback => dispatch => {
-  const URL = "/api/v3/stock/real-time-price/" + "AAPL,MSFT,FB,ZNGA,NVDA";
+  const URL =
+    "https://financialmodelingprep.com/api/v3/stock/real-time-price/" +
+    "AAPL,MSFT,FB,ZNGA,NVDA";
   axios.get(URL).then(res => {
     let stockPriceCard = res.data.companiesPriceList;
     if (callback) callback();

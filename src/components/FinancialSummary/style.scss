@@ -1,5 +1,12 @@
 .summary {
   padding: 1rem 3rem;
+  @media only screen and (max-width: 568px) {
+    pading: 1rem 2rem;
+  }
+  @media only screen and (max-width: 414px) {
+    pading: 1rem 1rem;
+  }
+
   &-title {
     color: rgb(42, 43, 45);
     font-size: 2.5rem;
@@ -9,10 +16,28 @@
     color: rgb(42, 43, 45);
     font-size: 1.8rem;
     display: flex;
+    align-items: center;
+    @media only screen and (max-width: 667px) {
+      justify-content: space-between;
+    }
+    @media only screen and (max-width: 568px) {
+      font-size: 1.5rem;
+    }
+    @media only screen and (max-width: 414px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
 
     &__sector {
       color: gray;
       padding-left: 2rem;
+      @media only screen and (max-width: 667px) {
+        font-size: 1.5rem;
+      }
+      @media only screen and (max-width: 414px) {
+        padding-left: 0;
+        font-size: 1.2rem;
+      }
     }
   }
   &-ratingAndHistoricalPrice {
@@ -25,6 +50,8 @@
 .statements {
   &-container {
     padding: 1rem 0;
+  }
+  &-individual-container {
     overflow-x: auto;
   }
   &-title {
@@ -47,9 +74,6 @@
 
 .table {
   color: rgb(42, 43, 45);
-  &-statements {
-    overflow-x: auto;
-  }
 }
 
 .about {
@@ -67,14 +91,26 @@
       display: flex;
       justify-content: space-between;
       padding: 1rem 0;
+      @media only screen and (max-width: 1024px) {
+        flex-direction: column;
+      }
     }
     &__lower {
     }
     &__detail {
       width: 20%;
+      @media only screen and (max-width: 1024px) {
+        width: 50%;
+        &:not(:last-child) {
+          margin-bottom: 1rem;
+        }
+      }
       &-title {
         font-weight: 700;
         color: rgb(87, 96, 100);
+        @media only screen and (max-width: 1024px) {
+          margin-right: 1rem;
+        }
       }
     }
   }

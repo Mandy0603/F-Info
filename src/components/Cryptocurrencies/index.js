@@ -6,11 +6,20 @@ import { fetchCryptoCard } from "../../store/actions/cryptocurrency";
 class Cryptocurrencies extends React.Component {
   state = { isLoading: false };
   componentDidMount() {
+    this.fetchDataWhenMounted();
+    this.timerID = setInterval(() => {
+      this.fetchDataWhenMounted();
+    }, 300000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+  fetchDataWhenMounted = () => {
     this.setState({ isLoading: true });
     this.props.fetchCryptoCard(() => {
       this.setState({ isLoading: false });
     });
-  }
+  };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.cryptoCard !== this.props.cryptoCard) {

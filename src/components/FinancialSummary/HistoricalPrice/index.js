@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import Chart from "./Chart";
 import { fetchStockCharts } from "../../../store/actions/stockChart";
+import Spinner2 from "../../Spinner2";
 
 import "./style.scss";
 
@@ -27,12 +28,15 @@ class HistoricalPrice extends React.Component {
     if (!this.props.stockCharts) {
       return <div className="history-price__spinner-container" />;
     }
-
     return <Chart type={"svg"} data={this.props.stockCharts} />;
   };
   render() {
     if (this.state.isLoading) {
-      return <div className="history-price__container" />;
+      return (
+        <div className="history-price__container-empty">
+          <Spinner2 />
+        </div>
+      );
     } else {
       return (
         <div className="history-price__container">

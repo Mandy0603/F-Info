@@ -12,12 +12,14 @@ import "./style.scss";
 
 class FinancialSummary extends React.Component {
   state = { isLoading: false };
+
   componentDidMount() {
     this.setState({ isLoading: true });
     this.props.fetchSummary(this.props.match.params.code, () => {
       this.setState({ isLoading: false });
     });
   }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.match.params.code !== this.props.match.params.code) {
       this.setState({ isLoading: true });

@@ -4,17 +4,22 @@ import { connect } from "react-redux";
 import { fetchCurrency } from "../../../store/actions/currency";
 
 class ScrollingBanner extends React.Component {
-  state = { toggle: true };
-  componentWillMount() {
-    this.props.fetchCurrency();
+  state = { isLoading: true };
+  componentDidMount() {
+    this.fetchDataWhenMounted();
+    this.timerID = setInterval(() => {
+      this.fetchDataWhenMounted();
+    }, 300000);
   }
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.fxRate !== this.props.fxRate) {
-      this.setState(prevState => {
-        this.state.toggle = !prevState.toggle;
-      });
-    }
+  componentWillUnmount() {
+    clearInterval(this.timerID);
   }
+  fetchDataWhenMounted = () => {
+    this.setState({ isLoading: true });
+    this.props.fetchCurrency(() => {
+      this.setState({ isLoading: false });
+    });
+  };
 
   renderFXRate = () => {
     return this.props.fxRate.map((rate, index) => {

@@ -6,11 +6,20 @@ import { fetchStockPriceCard } from "../../store/actions/stockPrice";
 class StockPrice extends React.Component {
   state = { isLoading: false };
   componentDidMount() {
+    this.fetchDataWhenMounted();
+    this.timerID = setInterval(() => {
+      this.fetchDataWhenMounted();
+    }, 300000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+  fetchDataWhenMounted = () => {
     this.setState({ isLoading: true });
     this.props.fetchStockPriceCard(() => {
       this.setState({ isLoading: false });
     });
-  }
+  };
 
   render() {
     return (

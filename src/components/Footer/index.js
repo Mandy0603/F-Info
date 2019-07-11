@@ -7,13 +7,20 @@ class Footer extends React.Component {
     return (
       <div className="footer">
         <div className="footer-text">
-          This website is built for pure purpose of practice. All data and UI
-          design come from https://financialmodelingprep.com/. All rights
-          belongs to
-          <span style={{ textDecoration: "underline", paddingLeft: "5px" }}>
+          This website is built for pure purpose of web development practice. No
+          commercial use is involved. All data and UI design come from
+          https://financialmodelingprep.com/. All rights belong to
+          <a
+            href="https://financialmodelingprep.com/"
+            style={{ textDecoration: "underline", paddingLeft: "5px" }}
+          >
             The Financial Modeling Prep Company
-          </span>
+          </a>
           .
+          <p style={{ padding: "1rem 0" }}>
+            All data except for those included in financial summary section will
+            be updated every 5 minutes or when manually refreshed.
+          </p>
         </div>
 
         <div className="footer-copyright">
