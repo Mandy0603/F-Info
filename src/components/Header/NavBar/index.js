@@ -42,10 +42,11 @@ class NavBar extends React.Component {
     return (
       <div className="mynavbar">
         <div className="mynavbar-brand" onClick={() => history.push("/")}>
-          Financial Info
+          Finance Info
         </div>
 
         <form
+          action="."
           className="nav-form"
           onSubmit={e => {
             this.handleFormSubmit(e);

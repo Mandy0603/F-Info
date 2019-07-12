@@ -79,12 +79,17 @@
     animation-iteration-count: infinite;
     animation-timing-function: linear;
     animation-duration: 150s;
-    animation-delay: 0.01s;
+    animation-delay: 1s;
     -webkit-animation-name: marquee;
     -webkit-animation-iteration-count: infinite;
     -webkit-animation-timing-function: linear;
     -webkit-animation-duration: 150s;
-    -webkit-animation-delay: 0.01s;
+    -webkit-animation-delay: 1s;
+    &:hover {
+      animation-play-state: paused;
+      -webkit-animation-play-state: paused;
+      cursor: default;
+    }
   }
   &-individual {
     width: 10%;
@@ -103,10 +108,7 @@
     transform: translateX(10%);
     -webkit-transform: -webkit-translateX(10%);
   }
-  1% {
-    transform: translateX(10%);
-    -webkit-transform: -webkit-translateX(10%);
-  }
+
   100% {
     transform: translateX(-100%);
     -webkit-transform: -webkit-translateX(-100%);

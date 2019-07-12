@@ -60,11 +60,11 @@ class StockPriceDetail extends React.Component {
         <div className="index-title">Search Stocks</div>
         <div className="index-search">
           <div className="ui segment">
-            <form onSubmit={this.onFormSubmit} className="ui form">
+            <form onSubmit={this.onFormSubmit} className="ui form" action=".">
               <div className="field">
                 <label>Please enter company code</label>
                 <input
-                  type="text"
+                  type="search"
                   value={this.state.stock}
                   onChange={e => {
                     this.setState({ stock: e.target.value });

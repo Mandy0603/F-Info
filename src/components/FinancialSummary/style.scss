@@ -52,7 +52,18 @@
     padding: 1rem 0;
   }
   &-individual-container {
-    overflow-x: auto;
+    &__laptop {
+      overflow-x: auto;
+      @media only screen and (max-width: 568px) {
+        display: none;
+      }
+    }
+    &__phone {
+      display: none;
+      @media only screen and (max-width: 568px) {
+        display: block;
+      }
+    }
   }
   &-title {
     color: rgb(42, 43, 45);
@@ -60,11 +71,18 @@
     font-size: 2rem;
     display: flex;
     justify-content: space-between;
+    @media only screen and (max-width: 568px) {
+      font-size: 1.5rem;
+    }
   }
   &-download {
     width: 4rem;
     height: 4rem;
     cursor: pointer;
+    @media only screen and (max-width: 568px) {
+      width: 3rem;
+      height: 3rem;
+    }
     img {
       width: 100%;
       height: 100%;
@@ -95,12 +113,11 @@
         flex-direction: column;
       }
     }
-    &__lower {
-    }
+
     &__detail {
       width: 20%;
       @media only screen and (max-width: 1024px) {
-        width: 50%;
+        width: 100%;
         &:not(:last-child) {
           margin-bottom: 1rem;
         }
@@ -113,5 +130,25 @@
         }
       }
     }
+  }
+}
+
+.year-container {
+  vertical-align: middle !important;
+}
+.phone-headers {
+  @media only screen and (max-width: 568px) {
+    font-size: 12px;
+    width: 65%;
+  }
+}
+
+.right-headers {
+  display: none;
+  @media only screen and (max-width: 1024px) {
+    display: block;
+  }
+  @media only screen and (max-width: 568px) {
+    display: none;
   }
 }

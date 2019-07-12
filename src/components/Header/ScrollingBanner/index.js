@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
+import history from "../../../history";
 import { fetchCurrency } from "../../../store/actions/currency";
 
 class ScrollingBanner extends React.Component {
@@ -44,7 +45,12 @@ class ScrollingBanner extends React.Component {
   render() {
     return (
       <div className="banner">
-        <div className="banner-content">{this.renderFXRate()}</div>
+        <div
+          onClick={() => history.push("/currencies")}
+          className="banner-content"
+        >
+          {this.renderFXRate()}
+        </div>
       </div>
     );
   }
