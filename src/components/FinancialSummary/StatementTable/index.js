@@ -6,6 +6,7 @@ import "../style.scss";
 
 class StatementTable extends React.Component {
   state = { yearSelected: 0 };
+
   renderRows = (financials, index) => {
     const tableHeads = this.props.tableHeads;
     let contentRow = [];
@@ -55,7 +56,7 @@ class StatementTable extends React.Component {
   };
 
   renderContentPhone = content => {
-    if (!content) return;
+    // if (!content || content.financials.length === 0) return;
     let tableContent = [];
     for (let i = 0; i < this.props.tableHeads.length; i++) {
       tableContent.push(
@@ -66,8 +67,9 @@ class StatementTable extends React.Component {
     }
     return tableContent;
   };
+
   renderContent = content => {
-    if (!content) return;
+    // if (!content || content.financials.length === 0) return;
     let tableContent = [];
     for (let i = 0; i < this.props.tableHeads.length; i++) {
       tableContent.push(
@@ -76,10 +78,13 @@ class StatementTable extends React.Component {
     }
     return tableContent;
   };
+
   onYearSelected = value => {
     this.setState({ yearSelected: value });
   };
+
   renderYearOptions = content => {
+    // if (content.financials.length === 0) return;
     let yearList = [];
     yearList.push(
       <option value={0}>{content.financials[0].date.slice(0, 4)}</option>
@@ -91,8 +96,9 @@ class StatementTable extends React.Component {
     }
     return yearList;
   };
+
   renderFirstRowPhone = content => {
-    if (!content) return;
+    // if (!content) return;
 
     let firstRow = [];
     firstRow.push(
@@ -106,13 +112,12 @@ class StatementTable extends React.Component {
           {this.renderYearOptions(content)}
         </select>
       </th>
-      // <th scope="col">{content.financials[0].date.slice(0, 4)}</th>
     );
 
     return firstRow;
   };
   renderFirstRow = content => {
-    if (!content) return;
+    // if (!content || content.financials.length === 0) return;
 
     let firstRow = [];
     for (let i = 0; i < content.financials.length; i++) {
@@ -125,47 +130,51 @@ class StatementTable extends React.Component {
     return firstRow;
   };
   render() {
-    return (
-      <div>
-        <div className="statements-title">
-          <div>{this.props.title}</div>
-          <a href={this.props.url} download className="statements-download">
-            <img src={require("../../../assets/icons/csv.png")} />
-          </a>
+    if (!this.props.content || this.props.content.financials.length === 0) {
+      return <div />;
+    } else {
+      return (
+        <div>
+          <div className="statements-title">
+            <div>{this.props.title}</div>
+            <a href={this.props.url} download className="statements-download">
+              <img src={require("../../../assets/icons/csv.png")} />
+            </a>
+          </div>
+          {/* for laptops */}
+          <div className="statements-individual-container__laptop">
+            <table className="table table-striped ">
+              <thead>
+                <tr>
+                  <th scope="col" className="year-container">
+                    Year
+                  </th>
+                  {this.renderFirstRow(this.props.content)}
+                  <th scope="col" className="year-container right-headers">
+                    Year
+                  </th>
+                </tr>
+              </thead>
+              <tbody>{this.renderContent(this.props.content)}</tbody>
+            </table>
+          </div>
+          {/* for phones */}
+          <div className="statements-individual-container__phone">
+            <table className="table table-striped ">
+              <thead>
+                <tr>
+                  <th scope="col" className="year-container phone-headers">
+                    Year
+                  </th>
+                  {this.renderFirstRowPhone(this.props.content)}
+                </tr>
+              </thead>
+              <tbody>{this.renderContentPhone(this.props.content)}</tbody>
+            </table>
+          </div>
         </div>
-        {/* for laptops */}
-        <div className="statements-individual-container__laptop">
-          <table className="table table-striped ">
-            <thead>
-              <tr>
-                <th scope="col" className="year-container">
-                  Year
-                </th>
-                {this.renderFirstRow(this.props.content)}
-                <th scope="col" className="year-container right-headers">
-                  Year
-                </th>
-              </tr>
-            </thead>
-            <tbody>{this.renderContent(this.props.content)}</tbody>
-          </table>
-        </div>
-        {/* for phones */}
-        <div className="statements-individual-container__phone">
-          <table className="table table-striped ">
-            <thead>
-              <tr>
-                <th scope="col" className="year-container phone-headers">
-                  Year
-                </th>
-                {this.renderFirstRowPhone(this.props.content)}
-              </tr>
-            </thead>
-            <tbody>{this.renderContentPhone(this.props.content)}</tbody>
-          </table>
-        </div>
-      </div>
-    );
+      );
+    }
   }
 }
 

@@ -40,37 +40,48 @@ export const fetchRating = (symbol, callback) => dispatch => {
       return axios.get(URL_DIVIDEND);
     })
     .then(res => {
-      rating.dividendYield =
-        res.data.metrics.length === 0
-          ? "-"
-          : res.data.metrics[0]["Dividend Yield"];
+      if (res.data.metrics) {
+        rating.dividendYield =
+          res.data.metrics.length === 0
+            ? "-"
+            : res.data.metrics[0]["Dividend Yield"];
+      } else {
+        rating.dividendYield = "-";
+      }
       return axios.get(URL_RATIO);
     })
     .then(res => {
-      rating.roe =
-        res.data.ratios.length === 0
-          ? "-"
-          : res.data.ratios[0].profitabilityIndicatorRatios.returnOnEquity;
-      rating.roa =
-        res.data.ratios.length === 0
-          ? "-"
-          : res.data.ratios[0].profitabilityIndicatorRatios.returnOnAssets;
-      rating.opMargin =
-        res.data.ratios.length === 0
-          ? "-"
-          : res.data.ratios[0].profitabilityIndicatorRatios.pretaxProfitMargin;
-      rating.de =
-        res.data.ratios.length === 0
-          ? "-"
-          : res.data.ratios[0].debtRatios.debtEquityRatio;
-      rating.pe =
-        res.data.ratios.length === 0
-          ? "-"
-          : res.data.ratios[0].investmentValuationRatios.priceEarningsRatio;
-      rating.pb =
-        res.data.ratios.length === 0
-          ? "-"
-          : res.data.ratios[0].investmentValuationRatios.priceBookValueRatio;
+      if (res.data.ratios) {
+        rating.roe =
+          res.data.ratios.length === 0
+            ? "-"
+            : res.data.ratios[0].profitabilityIndicatorRatios.returnOnEquity;
+        rating.roa =
+          res.data.ratios.length === 0
+            ? "-"
+            : res.data.ratios[0].profitabilityIndicatorRatios.returnOnAssets;
+        rating.opMargin =
+          res.data.ratios.length === 0
+            ? "-"
+            : res.data.ratios[0].profitabilityIndicatorRatios
+                .pretaxProfitMargin;
+        rating.de =
+          res.data.ratios.length === 0
+            ? "-"
+            : res.data.ratios[0].debtRatios.debtEquityRatio;
+        rating.pe =
+          res.data.ratios.length === 0
+            ? "-"
+            : res.data.ratios[0].investmentValuationRatios.priceEarningsRatio;
+        rating.pb =
+          res.data.ratios.length === 0
+            ? "-"
+            : res.data.ratios[0].investmentValuationRatios.priceBookValueRatio;
+      } else {
+        rating.roe = rating.roa = rating.opMargin = rating.de = rating.pe = rating.pb =
+          "-";
+      }
+
       if (callback) callback();
       return dispatch({
         type: FETCH_RATING,

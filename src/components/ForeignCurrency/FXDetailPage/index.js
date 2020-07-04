@@ -27,18 +27,18 @@ class MajorIndexesDetailPage extends React.Component {
     let tbody = [];
 
     for (let i = 0; i < this.props.currency.length; i++) {
-      const { ticker, bid, changes } = this.props.currency[i];
+      const { ticker, ask, changes } = this.props.currency[i];
       tbody.push(
         <tr>
           <th scope="row" className="th-name">
             {ticker}
           </th>
-          <td>{Number.parseFloat(bid).toFixed(4)}</td>
+          <td>{Number.parseFloat(ask).toFixed(4)}</td>
           <td
             style={{ color: changes >= 0 ? "rgb(4,159,58)" : "rgb(220,54,89)" }}
           >
             {(changes > 0 ? "+" : "") +
-              Number.parseFloat(bid - bid / (1 + changes / 100)).toFixed(4)}
+              Number.parseFloat(ask - ask / (1 + changes / 100)).toFixed(4)}
           </td>
           <td
             style={{ color: changes >= 0 ? "rgb(4,159,58)" : "rgb(220,54,89)" }}

@@ -1,6 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { searchStock } from "../../../store/actions/searchStock";
+import {
+  searchStock,
+  clearSearchResult
+} from "../../../store/actions/searchStock";
 
 import Modal from "../../Modal";
 import history from "../../../history";
@@ -10,31 +13,80 @@ import "../style.scss";
 class NavBar extends React.Component {
   state = { value: "", isLoading: false };
   componentDidMount() {
+    document.addEventListener("click", this.handleClickOutside);
     this.setState({ isLoading: true });
     this.props.searchStock(() => {
       this.setState({ isLoading: false });
     });
   }
 
+  componentWillUnmount() {
+    document.removeEventListener("click", this.handleClickOutside);
+  }
+  handleClickOutside = e => {
+    if (!this.node.contains(e.target)) {
+      this.setState({ value: "" });
+      // this.clearSearchResult();
+    }
+  };
+
+  clearSearchResult = () => {
+    this.setState({ isLoading: true });
+    this.props.clearSearchResult(() => {
+      this.setState({ isLoading: false });
+    });
+  };
+
   renderSearchResult = () => {
-    if (!this.props.stockList || this.props.stockList.length === 0) return;
+    if (
+      !this.props.stockList ||
+      this.props.stockList.length === 0 ||
+      !this.state.value ||
+      this.state.value.length < 3
+    ) {
+      return;
+    }
+
+    let searchResultFiltered = this.props.stockList.filter(stock => {
+      return (
+        stock.symbol.toLowerCase().includes(this.state.value.toLowerCase()) ||
+        stock.name.toLowerCase().includes(this.state.value.toLowerCase())
+      );
+    });
     let searchResult = [];
-    for (let i = 0; i < this.props.stockList.length; i++) {
-      const { symbol, name } = this.props.stockList[i];
+
+    for (let i = 0; i < searchResultFiltered.length; i++) {
+      const { symbol, name } = searchResultFiltered[i];
       searchResult.push(
-        <option className="nav-form__option" value={`${symbol}`}>
-          {name}
-        </option>
+        <div
+          className="nav-form__option"
+          value={`${symbol}`}
+          onClick={() => this.onOptionSelected(symbol)}
+        >
+          <span
+            className="nav-form__option-details"
+            style={{ fontWeight: 600 }}
+          >
+            {symbol}
+          </span>
+          <span className="nav-form__option-details">{"|"}</span>
+          <span className="nav-form__option-details">{name}</span>
+        </div>
       );
     }
     return searchResult;
   };
 
+  onOptionSelected = symbol => {
+    history.push(`/financial-summary/${symbol}`);
+    this.setState({ value: "" });
+    // this.clearSearchResult();
+  };
+
   handleFormSubmit = e => {
     e.preventDefault();
-    history.push(`/financial-summary/${this.state.value}`);
-    this.setState({ value: "" });
   };
+
   render() {
     if (this.state.isLoading) {
       return <Modal />;
@@ -45,32 +97,33 @@ class NavBar extends React.Component {
           Finance Info
         </div>
 
-        <form
-          action="."
-          className="nav-form"
-          onSubmit={e => {
-            this.handleFormSubmit(e);
-          }}
-        >
-          <input
-            className="nav-form__input"
-            type="search"
-            value={this.state.value}
-            placeholder="Search Stock"
-            aria-label="Search"
-            list="stockSearchResult"
-            autoComplete={true}
-            onChange={e => {
-              this.setState({ value: e.target.value });
+        <div className="nav-form__input-container">
+          <form
+            action="."
+            className="nav-form"
+            onSubmit={e => {
+              this.handleFormSubmit(e);
             }}
-          />
-          <datalist id="stockSearchResult" className="nav-form__result">
-            {this.renderSearchResult()}
-          </datalist>
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-            Search
-          </button>
-        </form>
+            ref={node => (this.node = node)}
+          >
+            <input
+              className="nav-form__input"
+              type="search"
+              value={this.state.value}
+              placeholder="Search Stock"
+              aria-label="Search"
+              list="stockSearchResult"
+              onChange={e => {
+                this.setState({ value: e.target.value });
+              }}
+            />
+            <div id="stockSearchResult" className="nav-form__result">
+              {this.renderSearchResult()}
+            </div>
+          </form>
+
+          <i class="search icon" />
+        </div>
       </div>
     );
   }
@@ -81,5 +134,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { searchStock }
+  { searchStock, clearSearchResult }
 )(NavBar);

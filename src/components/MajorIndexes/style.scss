@@ -54,7 +54,7 @@
   }
   &-detail {
     padding: 2rem 6rem;
-
+    min-height: 70vh;
     @media only screen and (max-width: 667px) {
       padding: 2rem 4rem;
     }

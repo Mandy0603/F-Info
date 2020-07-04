@@ -7,9 +7,8 @@ const parseDate = timeParse("%Y-%m-%d");
 
 export const fetchStockCharts = (symbol, callback) => dispatch => {
   const URL =
-    "https://financialmodelingprep.com/api/v3/historical-price-full/" +
-    symbol +
-    "?serietype=candle";
+    "https://financialmodelingprep.com/api/v3/historical-price-full/" + symbol;
+
   let stockChart = { candleChart: null };
   axios.get(URL).then(res => {
     stockChart = res.data.historical;

@@ -14,13 +14,6 @@ import axios from "axios";
 //   });
 // };
 
-// export const clearSearchResult = callback => dispatch => {
-//   if (callback) callback();
-//   return dispatch({
-//     type: CLEAR_SEARCH_RESULT
-//   });
-// };
-
 export const searchStock = callback => dispatch => {
   const URL = "https://financialmodelingprep.com/api/v3/company/stock/list";
   axios.get(URL).then(res => {
@@ -30,5 +23,12 @@ export const searchStock = callback => dispatch => {
       type: SEARCH_STOCK,
       payload: stockList
     });
+  });
+};
+
+export const clearSearchResult = callback => dispatch => {
+  if (callback) callback();
+  return dispatch({
+    type: CLEAR_SEARCH_RESULT
   });
 };

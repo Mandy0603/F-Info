@@ -63,7 +63,12 @@ class Card extends React.Component {
               src={require(`../../../assets/company/${symbol.toLowerCase()}.png`)}
               className="table-icon"
             />
-            <div className="table-name">{companyName[i]}</div>
+            <div
+              className="table-name table-name-price"
+              onClick={() => history.push(`/financial-summary/${symbol}`)}
+            >
+              {companyName[i]}
+            </div>
           </div>
           <div className="table-row__right">
             <div className="table-price">

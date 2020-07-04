@@ -150,7 +150,9 @@ class Rating extends React.Component {
                       : (this.props.rating.roe * 100).toFixed(2) + "%"}
                   </td>
                   <td className="detail-rating-recommendation">
-                    {this.props.rating.ratingDetails.ROE.recommendation || "-"}
+                    {!!this.props.rating.ratingDetails &&
+                      (this.props.rating.ratingDetails.ROE.recommendation ||
+                        "-")}
                   </td>
                 </tr>
                 <tr>
@@ -161,7 +163,9 @@ class Rating extends React.Component {
                       : (this.props.rating.roa * 100).toFixed(2) + "%"}
                   </td>
                   <td className="detail-rating-recommendation">
-                    {this.props.rating.ratingDetails.ROA.recommendation || "-"}
+                    {!!this.props.rating.ratingDetails &&
+                      (this.props.rating.ratingDetails.ROA.recommendation ||
+                        "-")}
                   </td>
                 </tr>
                 <tr>
@@ -177,24 +181,27 @@ class Rating extends React.Component {
                   <th scope="row">Debt / Equity</th>
                   <td>{this.props.rating.de}</td>
                   <td className="detail-rating-recommendation">
-                    {this.props.rating.ratingDetails["D/E"].recommendation ||
-                      "-"}
+                    {!!this.props.rating.ratingDetails &&
+                      (this.props.rating.ratingDetails["D/E"].recommendation ||
+                        "-")}
                   </td>
                 </tr>
                 <tr>
                   <th scope="row">P/E</th>
                   <td>{this.props.rating.pe}</td>
                   <td className="detail-rating-recommendation">
-                    {this.props.rating.ratingDetails["P/E"].recommendation ||
-                      "-"}
+                    {!!this.props.rating.ratingDetails &&
+                      (this.props.rating.ratingDetails["P/E"].recommendation ||
+                        "-")}
                   </td>
                 </tr>
                 <tr>
                   <th scope="row">P/B</th>
                   <td>{this.props.rating.pb}</td>
                   <td className="detail-rating-recommendation">
-                    {this.props.rating.ratingDetails["P/B"].recommendation ||
-                      "-"}
+                    {!!this.props.rating.ratingDetails &&
+                      (this.props.rating.ratingDetails["P/B"].recommendation ||
+                        "-")}
                   </td>
                 </tr>
                 <tr>

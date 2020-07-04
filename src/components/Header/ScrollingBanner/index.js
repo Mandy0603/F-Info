@@ -25,20 +25,20 @@ class ScrollingBanner extends React.Component {
   renderFXRate = () => {
     return this.props.fxRate.map((rate, index) => {
       return (
-        <span key={index} className="banner-individual">
-          <span className="banner-individual-ticker">{rate.ticker}</span>
-          <span className="banner-individual-price">
+        <div key={index} className="banner-individual">
+          <div className="banner-individual-ticker">{rate.ticker}</div>
+          <div className="banner-individual-price">
             {rate.bid && Number.parseFloat(rate.bid).toFixed(4)}
-          </span>
-          <span
+          </div>
+          <div
             className="banner-individual-change"
             style={{
               color: rate.changes > 0 ? "rgb(4,159,58)" : "rgb(220,54,89)"
             }}
           >
             {Number.parseFloat(rate.changes).toFixed(2) + "%"}
-          </span>
-        </span>
+          </div>
+        </div>
       );
     });
   };
